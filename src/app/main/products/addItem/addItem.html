@@ -1,0 +1,503 @@
+<div ng-form="addItem" class="add-item page-layout" layout="column">
+  <div class="header md-accent-bg" layout="row" layout-align="start center">
+    <div class="white-fg" layout="row" layout-align="start center" flex>
+      <md-button class="goto-orders-button md-icon-button" aria-label="Go to items" ui-sref="app.products" translate
+        translate-attr-aria-label="{{translate + 'GO_TO_ITEMS'}}">
+        <md-icon>arrow_back</md-icon>
+      </md-button>
+      <div layout="column" layout-align="start start">
+        <div class="h2">
+          <span translate="{{translate + 'ADD_ITEM'}}">Add Item</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <md-button class="md-raised md-background" ng-click="vm.submit()"
+        ng-disabled="addItem.$invalid || addItem.$pristine || vm.item.tags.length === 0 || vm.item.products.length === 0"
+        aria-label="SAVE" translate-attr-aria-label="{{translate + 'SAVE'}}">
+        <span translate="{{translate + 'SAVE'}}">Save</span>
+      </md-button>
+    </div>
+  </div>
+  <md-content class="md-padding" layout="row" layout-align="" flex>
+
+    <md-card md-theme-watch flex layout="column">
+      <md-card-content layout="row">
+        {{myValue}}
+        <md-input-container class="md-icon-float md-block">
+          <label translate="PRODUCTS.NAME">NAME</label>
+          <md-icon>label</md-icon>
+          <input type="text" ng-model="vm.item.name" ng-change="myFunc()" />
+        </md-input-container>
+        <md-input-container class="md-icon-float md-block">
+          <label translate="PRODUCTS.PRICE">Price</label>
+          <md-icon>attach_money</md-icon>
+          <input ng-model="vm.item.price" type="text">
+        </md-input-container>
+        <md-input-container class="md-icon-float md-block">
+          <label translate="PRODUCTS.ORIGINALPRICE">Price</label>
+          <md-icon>attach_money</md-icon>
+          <input ng-model="vm.item.original_price" type="text">
+        </md-input-container>
+        <md-input-container class="md-icon-float md-block">
+          <label translate="PRODUCTS.DISCOUNTEDPRICE">Price</label>
+          <md-icon>attach_money</md-icon>
+          <input ng-model="vm.item.discounted_price" type="text">
+        </md-input-container>
+      </md-card-content>
+    </md-card>
+  </md-content>
+  <md-content class="md-padding" layout="column" layout-align="" flex>
+    <div layout="row" flex>
+      <md-card md-theme-watch flex>
+        <img ngf-thumbnail="file1 || defaultBackground" class=" md-card-image" alt="avatar">
+        <div layout="row" layout-align="center end">
+          <!--<div><img  ngf-thumbnail="file1 || defaultBackground" alt="user-avatar" class="md-avatar"> </div>-->
+          <div class="fileUpload">
+            <md-button class="md-icon-button" ngf-select ng-model="file1" name="file" ngf-pattern="'image/*,video/*'"
+              ngf-accept="'image/*,video/*'" ngf-resize="{ratio:'6:4',quality: .9,centerCrop: true}">
+              <md-icon class="material-icons "> photo_camera</md-icon>
+            </md-button>
+          </div>
+          <div class="fileUpload">
+            <md-button ng-click="file1 = null;
+                            file1 = ''" class="md-icon-button">
+              <md-icon class="material-icons "> clear</md-icon>
+            </md-button>
+          </div>
+        </div>
+        <md-card-title>
+          <md-card-title-text>
+            <md-input-container class="md-icon-float md-block">
+              <label translate="PRODUCTS.DESCRIPTION">Description</label>
+              <md-icon>description</md-icon>
+              <textarea rows="3" ng-model="vm.item.description" type="text"></textarea>
+            </md-input-container>
+            <md-input-container class="md-icon-float md-block">
+              <label translate="PRODUCTS.HSCODE">HS Code</label>
+              <md-icon>graphic_eq</md-icon>
+              <input ng-model="vm.item.hs_cdoe" type="text">
+            </md-input-container>
+            <md-input-container class="md-icon-float md-block">
+              <label translate="PRODUCTS.WEIGHT">grade</label>
+              <md-icon>description</md-icon>
+              <input ng-model="vm.item.weight" type="number">
+            </md-input-container>
+          </md-card-title-text>
+
+        </md-card-title>
+      </md-card>
+      <div layout="column" flex="50">
+        <md-card md-theme-watch flex>
+          <md-card-content>
+            <md-list>
+              <md-list-item class="md-2-line">
+                <md-input-container style="margin: 0;">
+                  <label translate="PRODUCTS.TOTALQUANTITY">TOTALQUANTITY</label>
+                  <md-icon>exposure</md-icon>
+                  <input ng-model="vm.item.total_quantity" type="number">
+                  <!-- <md-select ng-model='vm.item.status'>
+                                        <md-option ng-value="'Out Of Stock'">{{"Out Of Stock"| translate}}</md-option>
+                                        <md-option ng-value="'Active'">{{"active" | translate}}</md-option>
+                                        <md-option ng-value="'Inactive'">{{"Inactive" | translate}}</md-option>
+                                    </md-select> -->
+                </md-input-container>
+              </md-list-item>
+              <md-list-item class="md-2-line">
+                <md-input-container>
+                  <label translate="PRODUCTS.STATUS">STATUS</label>
+                  <md-icon>menu</md-icon>
+                  <md-select ng-model='vm.item.status'>
+                    <md-option ng-value="'Out Of Stock'">{{"Out Of Stock"| translate}}</md-option>
+                    <md-option ng-value="'Active'">{{"active" | translate}}</md-option>
+                    <md-option ng-value="'Inactive'">{{"Inactive" | translate}}</md-option>
+                  </md-select>
+                </md-input-container>
+              </md-list-item>
+              <md-list-item class="md-2-line">
+                <md-input-container>
+                  <label translate="PRODUCTS.TYPE">Type</label>
+                  <md-icon>menu</md-icon>
+                  <md-select ng-model='vm.item.product_type'>
+                    <md-option ng-value="'Physical'">{{"physical"| translate}}</md-option>
+                    <md-option ng-value="'Service'">{{"service" | translate}}</md-option>
+                    <md-option ng-value="'None_Physical'">{{"None_Physical"| translate}}</md-option>
+                  </md-select>
+                </md-input-container>
+              </md-list-item>
+              <md-list-item class="md-2-line">
+                <md-input-container>
+                  <label translate="PRODUCTS.CATEGORY">Category</label>
+                  <md-icon>menu</md-icon>
+                  <md-select ng-model='vm.item.category_id' ng-change="categoryChange(vm.item.category_id)">
+                    <md-option ng-repeat="c in vm.categories" ng-value="c.id">{{c.name}}</md-option>
+                  </md-select>
+                </md-input-container>
+              </md-list-item>
+              <md-list-item class="md-2-line">
+                <md-input-container>
+                  <label translate="PRODUCTS.SUBCATEGORY">SUBCATEGORY</label>
+                  <md-icon>menu</md-icon>
+                  <md-select ng-model='vm.item.subCategory_id'>
+                    <md-option ng-repeat="c in vm.subCategories" ng-value="c.id">{{c.name}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </md-list-item>
+              <md-list-item class="md-2-line">
+                <md-input-container>
+                  <label translate="PRODUCTS.CURRENCY">CURRENCY</label>
+                  <md-icon>local_atm</md-icon>
+                  <md-select ng-model='vm.item.currency_id'>
+                    <md-option ng-repeat="c in vm.currencies" ng-value="c.id">{{c.country_code}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </md-list-item>
+              <md-list-item class="md-2-line">
+                <md-input-container>
+                  <label translate="PRODUCTS.COUNTRY">COUNTRY</label>
+                  <md-icon>place</md-icon>
+                  <md-select ng-model='vm.item.origin_country'>
+                    <md-option ng-repeat="c in vm.countries" ng-value="c.id">{{c.short_name}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </md-list-item>
+              <md-list-item class="md-2-line">
+                <!-- <label translate="PRODUCTS.CATEGORY">business</label> -->
+                <md-icon style="margin-right: 10px;">business</md-icon>
+                <md-autocomplete flex md-require-match md-delay="2000" md-no-cache="false"
+                  md-selected-item="selectedBusiness" md-search-text="searchBusiness"
+                  md-selected-item-change="selectedBusinessChange(i)" md-items="i in onChangeBusiness(searchBusiness)"
+                  md-item-text="i.name" md-min-length="0" md-floating-label="{{'PRODUCTS.BUSINESS'| translate}}">
+                  <md-item-template>
+                    <span md-highlight-text="searchBusiness" md-highlight-flags="^i">{{i.name}}</span>
+                  </md-item-template>
+                  <md-not-found>
+                    No Businesses matching {{searchBusiness}} were found.
+                  </md-not-found>
+                </md-autocomplete>
+              </md-list-item>
+              <md-list-item class="md-2-line">
+                <md-input-container>
+                  <label translate="PRODUCTS.BRANDS">Brands</label>
+                  <md-icon>local_offer</md-icon>
+                  <md-select ng-model='vm.item.brand_id'>
+                    <md-option ng-repeat="c in vm.brands" ng-value="c.id">{{c.name}}</md-option>
+                  </md-select>
+                </md-input-container>
+              </md-list-item>
+
+              <md-list-item class="md-2-line" layout='row' layout-align='space-between'>
+                <md-input-container class="md-icon-float md-block">
+                  <label translate="PRODUCTS.BARCODE">Barcode</label>
+                  <input ng-model="vm.item.barcode" type="number" step='1'>
+                </md-input-container>
+                <md-input-container class="md-icon-float md-block">
+                  <label translate="PRODUCTS.SKU ">SKU</label>
+                  <input ng-model="vm.item.sku" type="text" step='1'>
+                </md-input-container>
+              </md-list-item>
+              <md-list-item class="md-2-line" flex>
+                <div layout="column" flex="50">
+                  <!--<label translate="PRODUCTS.IS_EXCEPTIONAL">Is Exceptional</label>-->
+                  <md-switch ng-model="vm.item.over_sell_enabled" aria-label="Switch 1">
+                    Sell if out of stock
+                  </md-switch>
+                </div>
+              </md-list-item>
+
+            </md-list>
+          </md-card-content>
+        </md-card>
+      </div>
+    </div>
+    <div layout="row" flex>
+
+      <md-card md-theme-watch flex>
+        <md-card-content>
+          <md-list>
+            <md-list-item class="md-2-line">
+              <md-input-container>
+                <label translate="PRODUCTS.METATITLE">Meta Title</label>
+                <md-icon>menu</md-icon>
+                <textarea rows="3" ng-model="vm.item.meta_title" type="text"></textarea>
+
+              </md-input-container>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <md-input-container>
+                <label translate="PRODUCTS.METATAGS">Meta Tags</label>
+                <md-icon>menu</md-icon>
+                <textarea rows="3" ng-model="vm.item.meta_tags" type="text"></textarea>
+
+              </md-input-container>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <md-input-container>
+                <label translate="PRODUCTS.METADESCRIPTION">Meta Description</label>
+                <md-icon>menu</md-icon>
+                <textarea rows="3" ng-model="vm.item.meta_description" type="text"></textarea>
+
+              </md-input-container>
+            </md-list-item>
+
+          </md-list>
+        </md-card-content>
+      </md-card>
+
+
+      <!--            <md-card md-theme-watch flex>
+                                <md-card-content>
+                                    <md-list>
+                                        <md-list-item class="md-2-line">
+                                            <md-icon>insert_invitation</md-icon>
+                                            <md-chips ng-model="vm.item.products"
+                                                      md-autocomplete-snap
+                                                      md-removable="true"
+                                                      md-transform-chip="vm.transformChip($chip)"
+                                                      md-require-match="false">
+                                                <md-autocomplete
+                                                    md-selected-item="vm.selectedItem"
+                                                    md-search-text="vm.searchText"
+                                                    md-items="i in vm.querySearch(vm.searchText, vm.products)"
+                                                    md-item-text="i.name"
+                                                    placeholder="Enter a product...">
+                                                    <span md-highlight-text="vm.searchText">{{i.name}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        <strong>{{$chip.name}}</strong>
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                        </md-list-item>
+                                        <md-list-item class="md-2-line">
+                                            <md-icon>local_offer</md-icon>
+                                            <md-chips ng-model="vm.item.tags"
+                                                      md-autocomplete-snap
+                                                      md-removable="true"
+                                                      md-transform-chip="vm.transformChip($chip)"
+                                                      md-require-match="false">
+                                                <md-autocomplete
+                                                    md-selected-item="vm.selectedItem2"
+                                                    md-search-text="vm.searchText2"
+                                                    md-items="i in vm.querySearch(vm.searchText2, vm.tags)"
+                                                    md-item-text="i.name"
+                                                    placeholder="Enter a tag...">
+                                                    <span md-highlight-text="vm.searchText2">{{i.name}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        <strong>{{$chip.name}}</strong>
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+    
+                                                                        <md-chips ng-model="vm.item.tags" name="tags" readonly="false"
+                                                                                  md-removable="true" placeholder="Enter a tag...">
+                                                                            <md-chip-template>
+                                                                                <strong>{{$chip.name}}</strong>
+                                                                            </md-chip-template>
+                                                                        </md-chips>
+                                        </md-list-item>
+                                    </md-list>
+                                </md-card-content>
+                            </md-card>-->
+    </div>
+
+    <div layout="row" flex>
+
+      <md-card md-theme-watch flex>
+        <md-card-content>
+          <md-list>
+            <md-list-item class="md-2-line">
+              <md-input-container>
+                <label translate="PRODUCTS.URL">URL</label>
+                <md-icon>link</md-icon>
+                <input ng-model="vm.item.url" type="text">
+              </md-input-container>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <md-input-container>
+                <label translate="PRODUCTS.H1">h1</label>
+                <md-icon>menu</md-icon>
+                <input ng-model="vm.item.h1" type="text">
+              </md-input-container>
+            </md-list-item>
+          </md-list>
+        </md-card-content>
+      </md-card>
+
+    </div>
+
+
+    <div layout="row" flex>
+
+      <md-card md-theme-watch flex>
+        <md-card-content>
+          <md-list>
+            <md-list-item class="md-1-line">
+              <md-input-container class="m-0">
+                <md-switch ng-model="vm.item.has_variants" class="m-0" aria-label="Switch 1">
+                  {{"PRODUCTS.HASVARIANTS"|translate}}
+                </md-switch>
+              </md-input-container>
+            </md-list-item>
+            <!-- <md-list-item class="md-1-line"> -->
+            <label class="descVariants">Please define here whatever different types Of your product</label>
+            <!-- </md-list-item> -->
+          </md-list>
+          <md-list ng-show="vm.item.has_variants">
+            <div ng-repeat="item in  vm.variants">
+              <md-list-item class="md-2-line" layout="row">
+                <md-input-container>
+                  <label translate="PRODUCTS.TYPE">TYPE</label>
+                  <md-icon>subject</md-icon>
+                  <md-select ng-model='item.option'>
+                    <!-- <md-option ng-value="'size'">{{"SIZE"| translate}}</md-option>
+                    <md-option ng-value="'color'">{{"COLOR" | translate}}</md-option>
+                    <md-option ng-value="'material'">{{"MATERIAL" | translate}}</md-option>
+                    <md-option ng-value="'style'">{{"STYLE" | translate}}</md-option> -->
+                    <md-option ng-repeat="option in  vm.options" ng-value="option">{{option.name}}</md-option> 
+
+                  </md-select>
+                </md-input-container>
+                <md-input-container ng-show="item.option.type!='Color'" style="padding: 2px 20px;">
+                  <md-input-container style="margin: 0px;">
+                    <label> + Add Tag</label>
+                    <md-icon>label</md-icon>
+                    <input type="text" ng-keypress="addTag($event,item,tagName)" ng-model="tagName" />
+                  </md-input-container>
+                  <div class="custom-md-chip" ng-repeat="tag in  item.tags">
+                    <div class="custom-md-chip-content">
+                      <span>{{tag.value}}</span>
+                    </div>
+                    <div class="custom-md-chip-remove-container ng-scope">
+                      <button class="custom-md-chip-remove ng-scope" ng-click="removeChip(item,$index)">
+                        <md-icon class="custom-md-icon"><svg version="1.1" x="0px" y="0px" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" fit="" height="100%" width="100%"
+                            preserveAspectRatio="xMidYMid meet" focusable="false">
+                            <g>
+                              <path
+                                d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z">
+                              </path>
+                            </g>
+                          </svg> </md-icon>
+                      </button>
+                    </div>
+
+                  </div>
+
+                </md-input-container>
+
+                <md-input-container ng-show="item.option.type=='Color'" style="padding: 2px 20px;">
+                  <!-- <md-icon class="iconAddColor" ng-click="clickInPicker()">add</md-icon> -->
+                  <div md-color-picker ng-model="valueObj" class="custom-md-color-picker"
+                    ng-change="onChangeFilter(item,valueObj)">
+                  </div>
+                  <div class="custom-md-chip" ng-style="{'background-color': tag.value}" ng-repeat="tag in  item.tags">
+                    <div class="custom-md-chip-content">
+                      <span></span>
+                    </div>
+                    <div class="custom-md-chip-remove-container ng-scope">
+                      <button class="custom-md-chip-remove ng-scope" ng-click="removeChip(item,$index)">
+                        <md-icon class="custom-md-icon"><svg version="1.1" x="0px" y="0px" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" fit="" height="100%" width="100%"
+                            preserveAspectRatio="xMidYMid meet" focusable="false">
+                            <g>
+                              <path
+                                d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z">
+                              </path>
+                            </g>
+                          </svg> </md-icon>
+                      </button>
+                    </div>
+
+                  </div>
+
+                </md-input-container>
+              </md-list-item>
+              <div style="border-top: 1px solid rgba(0, 0, 0, 0.12);margin:20px 16px 30px 16px"></div>
+            </div>
+            <md-button class="md-raised md-background n" id="add-item-button" ng-click="addOption()"
+              ui-sref="app.products.add-product" aria-label="add variant" translate
+              translate-attr-aria-label="PRODUCTS.ADD_OPTION">
+              {{"PRODUCTS.ADD_OPTION"| translate}}
+            </md-button>
+            <md-button class="md-raised md-background n" id="add-item-button" ng-click="createVariants()"
+              ui-sref="app.products.add-product" aria-label="add variant" translate
+              translate-attr-aria-label="PRODUCTS.CREATE_VARIANT">
+              {{"PRODUCTS.CREATE_VARIANT"| translate}}
+            </md-button>
+
+          </md-list>
+
+        </md-card-content>
+      </md-card>
+
+    </div>
+
+    <div layout="row" flex ng-if="vm.allVariants.length!=0">
+
+      <md-card md-theme-watch flex>
+        <md-card-content>
+          <table class="dataTable row-border hover table table-striped">
+            <thead>
+              <tr>
+                <th> Variants </th>
+                <th>Price </th>
+                <th>Quantity</th>
+                <th>Barcode</th>
+                <th>SKU</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in  vm.allVariants">
+                <td>
+                  <span ng-repeat="optionValue in item.tags">
+                    {{optionValue.option.type!='Color'?optionValue.value:""}}
+                    <div ng-if="optionValue.option.type=='Color'" ng-style="{'background-color': optionValue.value}" class="colorVariants"></div>
+                  </span>
+                </td>
+                <td>
+                  <md-input-container style="margin-bottom: 0px;" class="md-icon-float md-block">
+                    <label translate="PRODUCTS.PRICE">Price</label>
+                    <md-icon>attach_money</md-icon>
+                    <input ng-model="item.price" type="number">
+                  </md-input-container>
+                </td>
+                <td>
+                  <md-input-container style="margin-bottom: 0px;" class="md-icon-float md-block">
+                    <label translate="PRODUCTS.QUANTITY">QUANTITY</label>
+                    <md-icon>exposure</md-icon>
+                    <input ng-model="item.quantity" type="number">
+                  </md-input-container>
+                </td>
+                <td>
+                  <md-input-container style="margin-bottom: 0px;" class="md-icon-float md-block">
+                    <label translate="PRODUCTS.BARCODE">BARCODE</label>
+                    <md-icon>graphic_eq</md-icon>
+                    <input ng-model="item.barcode" type="text">
+                  </md-input-container>
+                </td>
+                <td>
+                  <md-input-container style="margin-bottom: 0px;" class="md-icon-float md-block">
+                    <label translate="PRODUCTS.SKU">SKU</label>
+                    <md-icon>graphic_eq</md-icon>
+                    <input ng-model="item.SKU" type="text">
+                  </md-input-container>
+                </td>
+                <td>
+                  <md-icon style="padding-left: 20px;" class="hover" ng-click="deleteVariants($index)">delete</md-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </md-card-content>
+      </md-card>
+    </div>
+  </md-content>
+</div>

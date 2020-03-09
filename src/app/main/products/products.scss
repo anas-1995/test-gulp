@@ -1,0 +1,120 @@
+.custom-md-chip {
+  background: rgb(224, 224, 224);
+
+  color: white;
+  cursor: default;
+  border-radius: 16px;
+  display: block;
+  height: 32px;
+  line-height: 32px;
+  margin: 8px 8px 0 0;
+  padding: 0 12px 0 12px;
+  float: left;
+  box-sizing: border-box;
+  max-width: 100%;
+  position: relative;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  padding-right: 22px;
+
+  .custom-md-chip-content {
+    padding-right: 4px;
+    display: block;
+    float: left;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+  }
+
+  .custom-md-chip-remove-container {
+    position: absolute;
+    right: 0;
+    line-height: 22px;
+
+    .custom-md-chip-remove {
+      text-align: center;
+      width: 32px;
+      height: 32px;
+      min-width: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      margin: 0;
+      position: relative;
+
+      .custom-md-icon {
+        height: 18px;
+        width: 18px;
+        position: absolute;
+        top: 50%;
+        color: white;
+        left: 50%;
+        -webkit-transform: translate3d(-50%, -50%, 0);
+        transform: translate3d(-50%, -50%, 0);
+
+        svg {
+          width: 18px;
+          height: 18px;
+          max-width: 18px;
+          max-height: 18px;
+          margin: 4px;
+        }
+      }
+    }
+  }
+}
+
+.md-color-picker-input-container md-input-container {
+  display: none;
+}
+
+.md-color-picker-input-container .md-color-picker-preview {
+  top: 7px !important;
+  margin-bottom: 10px;
+  width: 35px !important;
+  height: 35px !important;
+}
+
+.md-color-picker-input-container button {
+  display: none;
+}
+
+.custom-md-color-picker {
+  float: left;
+  padding-right: 15px;
+
+}
+
+.colorVariants {
+  width: 16px;
+  float: left;
+  height: 16px;
+  margin: 0px 5px;
+  border-radius: 50%;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
+
+.iconAddColor {
+  position: absolute;
+  top: 16px;
+  left: 25px;
+  color: rgba(0, 0, 0, 0.7019607843137254) !important;
+  font-weight: 600 !important;
+  z-index: 1;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+
+.descVariants {
+  padding-left: 23px;
+  color: #888888;
+}
